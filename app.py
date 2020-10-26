@@ -24,16 +24,26 @@ def simple_pizza_order():
     # TODO: Render a form containing a text input asking the user for their
     # favorite pizza flavor, and a submit button.
 
-    return "Not Yet Implemented"
+    return """
+    <form action="/simple_results", method="GET">
+        What's your favorite pizza flavor? <br><br>
+        <input type="text" name="pizza_flavor"> <br><br>
+        <input type="submit" value="Submit">
+    </form>
+    """
+
+    # return "Not Yet Implemented"
 
 @app.route('/simple_results', methods=['GET', 'POST'])
 def simple_pizza_results():
     """Processes & shows results for a simple order form."""
 
+    print(request.args)
     # TODO: Use `request.args.get()` to retrieve the user's pizza flavor, then 
     # include it in the response.
+    flavor = request.args.get('pizza_flavor')
 
-    return "Your order has been received!"
+    return f"Your {flavor} pizza order has been received!"
 
 @app.route('/complex')
 def complex_pizza_order():
@@ -102,16 +112,17 @@ def complex_pizza_results():
     """Processes & shows results for a complex pizza order form."""
 
     # TODO: Uncomment the following lines to see the form key/value pairs
-    # print('------------------- REQUEST.ARGS -------------------------)
-    # print(request.args)
-    # print('----------------------------------------------------------)
+    print('------------------- REQUEST.ARGS -------------------------')
+    print(request.args)
+    print('----------------------------------------------------------')
 
-    users_email = '' # TODO: Replace me!
-    users_phone = '' # TODO: Replace me!
-    crust_type = '' # TODO: Replace me!
-    pizza_size = '' # TODO: Replace me!
+    users_email = request.args.get('email') # TODO: Replace me!
+    users_phone = request.args.get('phone') # TODO: Replace me!
+    crust_type = request.args.get('crust') # TODO: Replace me!
+    pizza_size = request.args.get('size') # TODO: Replace me!
     list_of_toppings = request.args.getlist('toppings')
-    accepted_terms = '' # TODO: Replace me!
+    accepted_terms = request.args.get('terms_conditions') # TODO: Replace me!
+    print(accepted_terms)
 
     if accepted_terms != 'accepted':
         return 'Please accept the terms and conditions and try again!'
