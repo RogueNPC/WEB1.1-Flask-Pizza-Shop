@@ -25,7 +25,7 @@ def simple_pizza_order():
     # favorite pizza flavor, and a submit button.
 
     return """
-    <form action="/simple_results", method="GET">
+    <form action="/simple_results", method="POST">
         What's your favorite pizza flavor? <br><br>
         <input type="text" name="pizza_flavor"> <br><br>
         <input type="submit" value="Submit">
@@ -38,10 +38,10 @@ def simple_pizza_order():
 def simple_pizza_results():
     """Processes & shows results for a simple order form."""
 
-    print(request.args)
+    print(request.form)
     # TODO: Use `request.args.get()` to retrieve the user's pizza flavor, then 
     # include it in the response.
-    flavor = request.args.get('pizza_flavor')
+    flavor = request.form.get('pizza_flavor')
 
     return f"Your {flavor} pizza order has been received!"
 
@@ -53,7 +53,7 @@ def complex_pizza_order():
     <h1>Welcome to PIZZA PIZZA ordering</h1>
     <p>We deliver your pizza in 40 minutes max. If not - Pizza's on us!</p>
     <p>Your details:</p>
-    <form action="/complex_results", method="GET">
+    <form action="/complex_results", method="POST">
     <p>
         <label for="email">Email:</label><br>
         <input type="email" name="email" placeholder="ex: myname@example.com">
@@ -113,16 +113,15 @@ def complex_pizza_results():
 
     # TODO: Uncomment the following lines to see the form key/value pairs
     print('------------------- REQUEST.ARGS -------------------------')
-    print(request.args)
+    print(request.form)
     print('----------------------------------------------------------')
 
-    users_email = request.args.get('email') # TODO: Replace me!
-    users_phone = request.args.get('phone') # TODO: Replace me!
-    crust_type = request.args.get('crust') # TODO: Replace me!
-    pizza_size = request.args.get('size') # TODO: Replace me!
-    list_of_toppings = request.args.getlist('toppings')
-    accepted_terms = request.args.get('terms_conditions') # TODO: Replace me!
-    print(accepted_terms)
+    users_email = request.form.get('email') # TODO: Replace me!
+    users_phone = request.form.get('phone') # TODO: Replace me!
+    crust_type = request.form.get('crust') # TODO: Replace me!
+    pizza_size = request.form.get('size') # TODO: Replace me!
+    list_of_toppings = request.form.getlist('toppings')
+    accepted_terms = request.form.get('terms_conditions') # TODO: Replace me!
 
     if accepted_terms != 'accepted':
         return 'Please accept the terms and conditions and try again!'
